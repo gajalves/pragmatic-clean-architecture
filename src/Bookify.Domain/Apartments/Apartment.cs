@@ -5,10 +5,10 @@ using Bookify.Domain.Shared;
 
 namespace Bookify.Domain.Apartments;
 
-public sealed class Apartment : Entity
+public sealed class Apartment : Entity<ApartmentId>
 {
     public Apartment(
-            Guid id,
+            ApartmentId id,
             Name name, 
             Description description, 
             Address address, 
@@ -22,6 +22,11 @@ public sealed class Apartment : Entity
         Price = price;
         CleaningFee = cleaningFee;        
         Amenities = amenities;
+    }
+
+    public Apartment()
+    {
+            
     }
 
     public Name Name { get; private set; }
