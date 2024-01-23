@@ -1,4 +1,4 @@
-﻿using Bookify.Application.Abstractions.Exceptions;
+﻿using Bookify.Application.Exceptions;
 using Bookify.Application.Abstractions.Messaging;
 using FluentValidation;
 using MediatR;
