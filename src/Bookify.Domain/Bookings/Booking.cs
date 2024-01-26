@@ -34,6 +34,11 @@ public sealed class Booking : Entity<BookingId>
         CreatedOnUtc = createdOnUtc;
     }
 
+    protected Booking()
+    {
+        
+    }
+
     public ApartmentId ApartmentId { get; private set; }
 
     public UserId UserId { get; private set; }

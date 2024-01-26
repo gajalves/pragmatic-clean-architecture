@@ -13,7 +13,7 @@ public sealed class User : Entity<UserId>
         Email = email;
     }
 
-    public User()
+    protected User()
     {
         
     }

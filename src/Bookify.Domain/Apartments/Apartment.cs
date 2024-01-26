@@ -24,7 +24,7 @@ public sealed class Apartment : Entity<ApartmentId>
         Amenities = amenities;
     }
 
-    public Apartment()
+    protected Apartment()
     {
             
     }

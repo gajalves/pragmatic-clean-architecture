@@ -8,15 +8,5 @@ internal sealed class UserRepository : BaseRepository<User, UserId>, IUserReposi
     public UserRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
 
-    }
-
-    public void Add(User user)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User?> GetByIdAsync(UserId id, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+    }   
 }
