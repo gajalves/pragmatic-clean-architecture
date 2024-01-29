@@ -2,14 +2,14 @@
 
 namespace Bookify.Infrastructure.Repositories;
 
-internal sealed class ApartmentRepository : BaseRepository<Apartment, ApartmentId>, IApartmentRepository
+internal sealed class ApartmentRepository : BaseRepository<Apartment>, IApartmentRepository
 {
     public ApartmentRepository(ApplicationDbContext dbContext) : base(dbContext)
     {
     }
 
-    public Task<Apartment?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+    //public Task<Apartment?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    //{
+    //    throw new NotImplementedException();
+    //}
 }

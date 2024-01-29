@@ -7,13 +7,13 @@ using Bookify.Domain.Users;
 
 namespace Bookify.Domain.Reviews;
 
-public sealed class Review : Entity<ReviewId>
+public sealed class Review : Entity
 {
     private Review(
-        ReviewId id,
-        ApartmentId apartmentId,
-        BookingId bookingId,
-        UserId userId,
+        Guid id,
+        Guid apartmentId,
+        Guid bookingId,
+        Guid userId,
         Rating rating,
         Comment comment,
         DateTime createdOnUtc)
@@ -31,11 +31,11 @@ public sealed class Review : Entity<ReviewId>
     {
     }
 
-    public ApartmentId ApartmentId { get; private set; }
+    public Guid ApartmentId { get; private set; }
 
-    public BookingId BookingId { get; private set; }
+    public Guid BookingId { get; private set; }
 
-    public UserId UserId { get; private set; }
+    public Guid UserId { get; private set; }
 
     public Rating Rating { get; private set; }
 
@@ -55,7 +55,7 @@ public sealed class Review : Entity<ReviewId>
         }
 
         var review = new Review(
-            ReviewId.New(),
+            Guid.NewGuid(),
             booking.ApartmentId,
             booking.Id,
             booking.UserId,

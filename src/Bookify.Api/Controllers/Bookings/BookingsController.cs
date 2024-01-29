@@ -16,7 +16,7 @@ public class BookingsController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetBooking(Guid id, CancellationToken cancellationToken)
     {
         var query = new GetBookingQuery(id);
