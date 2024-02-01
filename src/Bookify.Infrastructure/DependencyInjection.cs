@@ -13,11 +13,16 @@ using Bookify.Infrastructure.Data;
 using Bookify.Infrastructure.Email;
 using Bookify.Infrastructure.Repositories;
 using Dapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using AuthenticationOptions = Bookify.Infrastructure.Authentication.AuthenticationOptions;
+using AuthenticationService = Bookify.Infrastructure.Authentication.AuthenticationService;
+using IAuthenticationService = Bookify.Application.Abstractions.Authentication.IAuthenticationService;
 
 namespace Bookify.Infrastructure;
 
@@ -77,6 +82,8 @@ public static class DependencyInjection
     {
         services.AddScoped<AuthorizationService>();
         services.AddTransient<Microsoft.AspNetCore.Authentication.IClaimsTransformation, CustomClaimsTransformation>();
+        services.AddTransient<IAuthorizationHandler, PermissionAuthorizationHandler>();
+        services.AddTransient<IAuthorizationPolicyProvider, PermissionAuthorizationPolicyProvider>();
     }
 
     private static void AddPersistence(IServiceCollection services, IConfiguration configuration)

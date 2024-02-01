@@ -13,4 +13,5 @@ public sealed class Role
     public string Name { get; init; } = string.Empty;
 
     public ICollection<User> Users { get; init; } = new List<User>();
+    public RolePermission RolePermissions { get; init; }
 }

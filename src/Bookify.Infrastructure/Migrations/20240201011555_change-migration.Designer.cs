@@ -3,6 +3,7 @@ using System;
 using Bookify.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Bookify.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240201011555_change-migration")]
+    partial class changemigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,8 +178,15 @@ namespace Bookify.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("integer")
+                        .HasColumnName("role_id");
+
                     b.HasKey("Id")
                         .HasName("pk_permissions");
+
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("ix_permissions_role_id");
 
                     b.ToTable("permissions", (string)null);
 
@@ -230,10 +240,6 @@ namespace Bookify.Infrastructure.Migrations
 
                     b.HasIndex("PermissionId")
                         .HasDatabaseName("ix_role_permissions_permission_id");
-
-                    b.HasIndex("RoleId")
-                        .IsUnique()
-                        .HasDatabaseName("ix_role_permissions_role_id");
 
                     b.ToTable("role_permissions", (string)null);
 
@@ -583,6 +589,14 @@ namespace Bookify.Infrastructure.Migrations
                         .HasConstraintName("fk_reviews_user_user_id");
                 });
 
+            modelBuilder.Entity("Bookify.Domain.Users.Permission", b =>
+                {
+                    b.HasOne("Bookify.Domain.Users.Role", null)
+                        .WithMany("Permissions")
+                        .HasForeignKey("RoleId")
+                        .HasConstraintName("fk_permissions_role_role_id");
+                });
+
             modelBuilder.Entity("Bookify.Domain.Users.RolePermission", b =>
                 {
                     b.HasOne("Bookify.Domain.Users.Permission", "Permission")
@@ -593,8 +607,8 @@ namespace Bookify.Infrastructure.Migrations
                         .HasConstraintName("fk_role_permissions_permissions_permission_id");
 
                     b.HasOne("Bookify.Domain.Users.Role", "Role")
-                        .WithOne("RolePermissions")
-                        .HasForeignKey("Bookify.Domain.Users.RolePermission", "RoleId")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_role_permissions_roles_role_id");
@@ -623,8 +637,7 @@ namespace Bookify.Infrastructure.Migrations
 
             modelBuilder.Entity("Bookify.Domain.Users.Role", b =>
                 {
-                    b.Navigation("RolePermissions")
-                        .IsRequired();
+                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }
