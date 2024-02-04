@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Bookify.Domain.Abstractions;
 
@@ -41,13 +43,13 @@ public class Result
 public class Result<TValue> : Result
 {
     private readonly TValue? _value;
-
-    protected internal Result(TValue? value, bool isSuccess, Error error)
+       
+    public Result(TValue? value, bool isSuccess, Error error)
         : base(isSuccess, error)
     {
         _value = value;
     }
-
+   
     [NotNull]
     public TValue Value => IsSuccess
         ? _value!

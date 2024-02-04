@@ -15,7 +15,7 @@ internal sealed class CacheService : ICacheService
     }
 
     public async Task<T?> GetAsync<T>(string key, CancellationToken cancellation = default)
-    {
+    {        
         byte[]? bytes = await _cache.GetAsync(key, cancellation);
 
         return bytes is null ? default : Deserialize<T>(bytes);
@@ -23,8 +23,8 @@ internal sealed class CacheService : ICacheService
     }
 
     private T Deserialize<T>(byte[] bytes)
-    {
-        return JsonSerializer.Deserialize<T>(bytes);
+    {        
+        return JsonSerializer.Deserialize<T>(bytes)!;
     }
 
     public Task RemoveAsync(string key, CancellationToken cancellationToken = default)
