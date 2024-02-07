@@ -1,4 +1,5 @@
-﻿using Bookify.Application.Users.GetLoggedInUser;
+﻿using Asp.Versioning;
+using Bookify.Application.Users.GetLoggedInUser;
 using Bookify.Application.Users.LogInUser;
 using Bookify.Application.Users.RegisterUser;
 using Bookify.Infrastructure.Authorization;
@@ -8,9 +9,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bookify.Api.Controllers.Users
-{
+{    
     [ApiController]
-    [Route("api/users")]
+    [ApiVersion(ApiVersions.V1)]    
+    [Route("api/v{version:apiVersion}/users")]
     public class UsersController : ControllerBase
     {
         private readonly ISender _sender;
@@ -19,8 +21,8 @@ namespace Bookify.Api.Controllers.Users
         {
             _sender = sender;
         }
-
-        [HttpGet("me")]        
+        
+        [HttpGet("me")]
         [HasPermission(Permissions.UsersRead)]
         public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
         {
@@ -30,8 +32,7 @@ namespace Bookify.Api.Controllers.Users
 
             return Ok(result.Value);
         }
-
-
+        
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(
