@@ -3,7 +3,7 @@
 public record Currency
 {
     internal static readonly Currency None = new("");
-    private static readonly Currency Usd = new("USD");
+    public static readonly Currency Usd = new("USD");
     private static readonly Currency Brl = new("BRL");
 
     private Currency(string code) => Code = code;
