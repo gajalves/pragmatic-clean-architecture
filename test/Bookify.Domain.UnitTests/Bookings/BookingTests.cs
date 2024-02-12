@@ -26,6 +26,6 @@ public class BookingTests
 
         //
         var domainEvent = booking.GetDomainEvents().OfType<BookingReservedDomainEvent>().SingleOrDefault();
-        domainEvent.BookingId.Should().NotBe(booking.Id);
+        domainEvent.BookingId.Should().Be(booking.Id);
     }
 }
