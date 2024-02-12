@@ -11,7 +11,10 @@ on:
 
 jobs:
   build:
-
+    env:
+      test_project: ./test/Bookify.Domain.UnitTests/Bookify.Domain.UnitTests.csproj
+      api_project: ./src/Bookify.Api/Bookify.Api.csproj
+      
     runs-on: ubuntu-latest
 
     steps:
@@ -23,6 +26,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ${{ env.api_project }} --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test {{ env.test_project }} --no-build --verbosity normal
