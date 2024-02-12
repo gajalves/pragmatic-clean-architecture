@@ -28,4 +28,4 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.api_project }} --no-restore
     - name: Test
-      run: dotnet test {{ env.test_project }} --no-build --verbosity normal
+      run: dotnet test ${{ env.test_project }} --no-build --verbosity normal
