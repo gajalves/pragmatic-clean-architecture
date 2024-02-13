@@ -12,7 +12,8 @@ on:
 jobs:
   build:
     env:
-      test_project: ./test/Bookify.Domain.UnitTests/Bookify.Domain.UnitTests.csproj
+      domain_unit_test_project: ./test/Bookify.Domain.UnitTests/Bookify.Domain.UnitTests.csproj
+      application_unit_test_project: ./test/Bookify.Application.UnitTests/Bookify.Application.UnitTests.csproj
       api_project: ./src/Bookify.Api/Bookify.Api.csproj
       
     runs-on: ubuntu-latest
@@ -27,5 +28,7 @@ jobs:
       run: dotnet restore ${{ env.api_project }} 
     - name: Build
       run: dotnet build ${{ env.api_project }} --no-restore
-    - name: Test
-      run: dotnet test ${{ env.test_project }} --verbosity normal
+    - name: Unit Test - Domain 
+      run: dotnet test ${{ env.domain_unit_test_project }} --verbosity normal
+    - name: Unit Test - Application 
+      run: dotnet test ${{ env.application_unit_test_project }} --verbosity normal
