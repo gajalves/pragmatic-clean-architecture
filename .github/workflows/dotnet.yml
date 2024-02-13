@@ -29,6 +29,6 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.api_project }} --no-restore
     - name: Unit Test - Domain 
-      run: dotnet test ${{ env.domain_unit_test_project }} --verbosity normal
+      run: dotnet test ${{ env.domain_unit_test_project }} --verbosity quiet
     - name: Unit Test - Application 
-      run: dotnet test ${{ env.application_unit_test_project }} --verbosity normal
+      run: dotnet test ${{ env.application_unit_test_project }} --verbosity quiet
